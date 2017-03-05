@@ -1,0 +1,35 @@
+- hosts: all
+
+  tasks:
+    - name: Debug information.
+      debug: msg="Begin to deploy..."
+
+- hosts: web-srv
+  tasks:
+    - name: Clean the work directory of App component
+      file: 
+        dest: "{{ app_root }}"
+        state: absent
+
+    - name: Copy file to app_root
+      copy: 
+        src: "/root/hello/releases/app"
+        dest: "{{ app_root }}"
+
+    - name: Change the value of the username in db.conf
+      lineinfile: 
+        dest: "{{ app_root }}/app/db.conf" 
+        regexp: "username="
+        line: "username={{ username }}"
+
+- hosts: db-srv
+  tasks:
+    - name: Clean the work directory of DB component
+      file: 
+        dest: "{{ db_root }}"
+        state: absent
+
+    - name: Copy file to db_root
+      copy: 
+        src: "/root/hello/releases/db"
+        dest: "{{ db_root }}"

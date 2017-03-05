@@ -1,0 +1,16 @@
+[web-srv]
+server1
+
+[db-srv]
+server1
+
+[hello:children]
+web-srv
+db-srv
+
+[hello:vars]
+app_root=/opt/hello/test/app
+db_root=/opt/hello/test/db
+username=user_test
+password=pass_test
+

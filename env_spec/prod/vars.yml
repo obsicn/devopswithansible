@@ -1,0 +1,3 @@
+username: user_test
+password: pass_test
+app.root: /opt/runtime/hello/prod
